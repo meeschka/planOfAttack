@@ -1,7 +1,8 @@
-interface Theme {
+export interface ThemeInterface {
     mainBackground: string,
     cardBackground: string,
     fontColor: string,
+    fontColorOnPrimary: string,
     primary: string,
     lightPrimary: string,
     accent: string,
@@ -15,10 +16,11 @@ interface Theme {
     darkMidtone: string
 }
 
-export const bright: Theme = {
+export const bright: ThemeInterface = {
     mainBackground: 'white',
     cardBackground: '#ebf2f2',
     fontColor: '#000a33',
+    fontColorOnPrimary: 'white',
     primary: '#03dac4',
     lightPrimary: '#03dac4',
     accent: '#6200ee',
