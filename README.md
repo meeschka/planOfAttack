@@ -9,3 +9,6 @@ Clone repo, cd into repo, npm install. You can then use any of the following exp
 `npm android` - launches the expo app for android devices
 `npm ios` - launches the expo app for ios devices
 `npm web` - launches the expo app for web devices
+
+### Notes for myself
+`npx tsc` to run typecheck
