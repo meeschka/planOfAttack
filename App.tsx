@@ -1,28 +1,28 @@
-import { StatusBar } from 'expo-status-bar';
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { ThemeProvider, useThemeContext } from './src/context/ThemeContext/ThemeContext'
-import Button from './src/components/Button/Button'
+import { NavigationContainer } from '@react-navigation/native';
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+import { ThemeProvider } from './src/context/ThemeContext/ThemeContext'
+import PlansScreen from './src/screens/PlansScreen/PlansScreen'
+import ProjectsScreen from './src/screens/ProjectsScreen/ProjectsScreen';
+
+
+export type RootTabParamList = {
+  Projects: undefined,
+  Plans: undefined
+}
+
+const Tab = createBottomTabNavigator<RootTabParamList>()
+
 export default function App() {
-  const theme=useThemeContext()
   return (
     <ThemeProvider>
-      <View style={styles.container}>
-        <Text>Open up App.tsx to start working on your app!</Text>
-        <Text>Current theme is {theme.warning}</Text>
-        <StatusBar style="auto" />
-        <Button type="primary" size="sm" text="Words here" onPress={()=>console.log('hi')}/>
-        <Button type="warning" size="lg" text="Words here" onPress={()=>console.log('hi')}/>
-      </View>
+      <NavigationContainer>
+        <Tab.Navigator initialRouteName="Plans">
+          <Tab.Screen name="Plans" component={PlansScreen} />
+          <Tab.Screen name="Projects" component={ProjectsScreen} />
+        </Tab.Navigator>
+      </NavigationContainer>
     </ThemeProvider>
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
