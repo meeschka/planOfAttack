@@ -61,6 +61,9 @@
   },
   "private": true,
   "eslintConfig": {
-    "extends": ["universe/native", "plugin:react-hooks/recommended"]
+    "extends": [
+      "universe/native",
+      "plugin:react-hooks/recommended"
+    ]
   }
 }

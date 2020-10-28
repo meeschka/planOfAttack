@@ -13,43 +13,26 @@ type Props = {
 const Button = ({ type, size, text, onPress}: Props) => {
     const theme = useThemeContext()
     const windowWidth = useWindowDimensions().width;
-    const [breakpoint, setBreakpoint] = useState('md')
+    const [isMobile, setIsMobile] = useState(false)
 
     useEffect(() => {
-        const breakpoint = findBreakPoint()
-        setBreakpoint(breakpoint)
+        const isMobile = windowWidth <= 768 ? true : false
+        setIsMobile(isMobile)
     }, [windowWidth])
-
-    const findBreakPoint = () => {
-        switch (true) {
-        case (windowWidth <= 575):
-            return 'xs'
-        case (windowWidth >= 576 && windowWidth <= 767):
-            return 'sm'
-        case (windowWidth >= 768 && windowWidth <= 991):
-            return 'md'
-        case (windowWidth >= 992 && windowWidth <= 1199):
-            return 'lg'
-        case (windowWidth >= 1200):
-            return 'xl'
-        default:
-            return 'md'
-        }
-    }
 
     return (
         <TouchableOpacity
         style={{
             backgroundColor: theme[type],
-            padding: size === 'sm' ? 10 : 15,
+            padding: isMobile ? 10 : 15,
             borderRadius: 10,
-            minWidth: breakpoint === 'xs' ? '100%' : undefined
+            minWidth: isMobile ? '100%' : undefined
         }}
         onPress={onPress}
         >
             <Text style={{
                 color: theme.fontColorOnPrimary,
-                fontSize: size === 'sm' ? 14 : 20,
+                fontSize: isMobile ? 14 : 20,
                 textAlign: 'center'
                 }}>
                 {text}
