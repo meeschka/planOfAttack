@@ -3,7 +3,7 @@ import { View, Text, StyleSheet } from 'react-native'
 import { StatusBar } from 'expo-status-bar';
 import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
 
-import Button from '../../components/Button/Button'
+import { Button } from '../../components'
 import { RootTabParamList } from '../../../App'
 
 type ProjectsScreenNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Projects'>

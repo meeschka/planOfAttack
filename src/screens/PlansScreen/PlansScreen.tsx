@@ -1,35 +1,78 @@
-import React from 'react';
-import { View, Text, StyleSheet } from 'react-native'
-import { StatusBar } from 'expo-status-bar';
-import { BottomTabNavigationProp } from '@react-navigation/bottom-tabs'
+import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
+import { StatusBar } from "expo-status-bar";
+import React from "react";
+import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 
-import Button from '../../components/Button/Button'
-import { RootTabParamList } from '../../../App'
+import { RootTabParamList } from "../../../App";
+import { Button, PlanListView } from "../../components";
 
-type PlansScreenNavigationProp = BottomTabNavigationProp<RootTabParamList, 'Plans'>
+type PlansScreenNavigationProp = BottomTabNavigationProp<
+  RootTabParamList,
+  "Plans"
+>;
 
-type Props = {
-  navigation: PlansScreenNavigationProp
+interface Props {
+  navigation: PlansScreenNavigationProp;
 }
 
-const PlansScreen = ({ navigation }: Props) => {
-    return (
-        <View style={styles.container}>
-            <Text>A place for your plans!</Text>
-            <StatusBar style="auto" />
-            <Button type="primary" size="sm" text="Go to Projects" onPress={()=>navigation.navigate('Projects')}/>
-            <Button type="accent" size="sm" text="Add a Plan" onPress={()=>console.log('hi')}/>
-        </View>
-    );
-  }
+interface Plan {
+  id: string;
+  title: string;
+  description: string;
+  notes?: string;
+  project?: string;
+  materials?: [string];
+}
 
-export default PlansScreen
+const dummyPlans: Plan[] = [
+  {
+    id: "123",
+    title: "Brown wool skirt",
+    description: "Circle skirt using that wool from SFF",
+  },
+  {
+    id: "456",
+    title: "Green sweater",
+    description:
+      "Using the merino from my birthday. Thinking either a cabled cardigan (like the Mulberry Wine pattern by Thea of BabyCocktails) or maybe more of a plan turtleneck with simple detailing, like the September Morn (also a BabyCocktails design) or the Big Y by Hinterm Stein",
+  },
+];
+
+const PlansScreen = ({ navigation }: Props) => {
+  return (
+    <ScrollView>
+      <View style={styles.container}>
+        <Text>A place for your plans!</Text>
+        <StatusBar style="auto" />
+        <Button
+          type="primary"
+          size="sm"
+          text="Go to Projects"
+          onPress={() => navigation.navigate("Projects")}
+        />
+        <Button
+          type="accent"
+          size="sm"
+          text="Add a Plan"
+          onPress={() => console.log("hi")}
+        />
+        <FlatList
+          data={dummyPlans}
+          renderItem={({ item }) => <PlanListView plan={item}  />}
+          keyExtractor={(item: Plan) => item.id}
+        />
+      </View>
+    </ScrollView>
+  );
+};
+
+export default PlansScreen;
 
 const styles = StyleSheet.create({
-    container: {
-      flex: 1,
-      backgroundColor: '#fff',
-      alignItems: 'center',
-      justifyContent: 'center',
-    },
-  });
+  container: {
+    flex: 1,
+    backgroundColor: "#fff",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+});

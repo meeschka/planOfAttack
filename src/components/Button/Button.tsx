@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useWindowDimensions, TouchableOpacity, Text } from 'react-native'
+import { useWindowDimensions, TouchableOpacity, Text, GestureResponderEvent } from 'react-native'
 
 import { useThemeContext } from '../../context/ThemeContext/ThemeContext'
 
@@ -13,7 +13,7 @@ type Props = {
 const Button = ({ type, size, text, onPress}: Props) => {
     const theme = useThemeContext()
     const windowWidth = useWindowDimensions().width;
-    const [breakpoint, setBreakpoint] = useState('')
+    const [breakpoint, setBreakpoint] = useState('md')
 
     useEffect(() => {
         const breakpoint = findBreakPoint()
@@ -32,6 +32,8 @@ const Button = ({ type, size, text, onPress}: Props) => {
             return 'lg'
         case (windowWidth >= 1200):
             return 'xl'
+        default:
+            return 'md'
         }
     }
 
