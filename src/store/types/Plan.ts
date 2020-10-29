@@ -11,15 +11,15 @@ export interface Plan {
 export interface PlanState {
   plans: Plan[];
   loading: boolean;
-  error: string | boolean;
+  error: string | undefined;
 }
 
 // action types
 export const GET_PLANS = "GET_PLANS";
 export const ADD_PLAN = "ADD_PLAN";
 export const DELETE_PLAN = "DELETE_PLAN";
-export const SET_PLAN_ERROR = "SET_PLAN_ERROR";
 export const SET_PLAN_LOADING = "SET_PLAN_LOADING";
+export const SET_PLAN_ERROR = "SET_PLAN_ERROR";
 export const GET_PLANS_SAGA = "GET_PLANS_SAGA";
 
 interface GetPlansAction {
