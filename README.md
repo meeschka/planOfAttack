@@ -1,7 +1,7 @@
 # Plan of Attack
 ## A simple app for tracking project plans
 
-This app is primarily intended as a practice piece to gain better understanding of typescript, react native, and expo. Superficially, it also serves to track fabric, future sewing plans, and sewing projects. Hypothetically, it could be extended for other crafts or hobbies where the tracking of materials is useful. Feel free to fork and play around.
+This app is primarily intended as a practice piece to gain better understanding of typescript, react native, redux-saga and expo. Superficially, it also serves to track fabric, future sewing plans, and sewing projects. Hypothetically, it could be extended for other crafts or hobbies where the tracking of materials is useful. Feel free to fork and play around.
 
 ## To run locally
 Clone repo, cd into repo, npm install. You can then use any of the following expo commands:
