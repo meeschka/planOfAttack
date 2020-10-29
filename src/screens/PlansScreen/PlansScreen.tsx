@@ -6,7 +6,7 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { RootTabParamList } from "../../../App";
 import { Button, PlanListView } from "../../components";
-import { getPlans, addPlan } from "../../store/actions/PlanActions";
+import { getPlansSaga, addPlanSaga } from "../../store/actions/PlanActions";
 import { Plan } from "../../store/types/Plan";
 import RootState from "../../store/types/Root";
 
@@ -32,11 +32,11 @@ const PlansScreen = ({ navigation }: Props) => {
 
   useEffect(() => {
     if (!plans.length && !planError && !planLoading) {
-      dispatch(getPlans());
+      dispatch(getPlansSaga());
     }
   });
 
-  const addAPlan = () => dispatch(addPlan(toAdd));
+  const addAPlan = () => dispatch(addPlanSaga(toAdd));
   return (
     <ScrollView>
       <View style={styles.container}>

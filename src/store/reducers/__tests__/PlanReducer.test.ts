@@ -6,7 +6,7 @@ import {
   DELETE_PLAN,
   SET_PLAN_ERROR,
   SET_PLAN_LOADING,
-  PlanActionTypes
+  PlanActionTypes,
 } from "../../types/Plan";
 import planReducer from "../PlanReducer";
 

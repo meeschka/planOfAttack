@@ -21,6 +21,8 @@ export const DELETE_PLAN = "DELETE_PLAN";
 export const SET_PLAN_LOADING = "SET_PLAN_LOADING";
 export const SET_PLAN_ERROR = "SET_PLAN_ERROR";
 export const GET_PLANS_SAGA = "GET_PLANS_SAGA";
+export const ADD_PLAN_SAGA = "ADD_PLAN_SAGA";
+export const DELETE_PLAN_SAGA = "DELETE_PLAN_SAGA";
 
 interface GetPlansAction {
   type: typeof GET_PLANS;
@@ -47,8 +49,18 @@ interface SetPlanErrorAction {
   payload: string | undefined;
 }
 
-interface GetPlansSaga {
+export interface GetPlansSaga {
   type: typeof GET_PLANS_SAGA;
+}
+
+export interface AddPlanSaga {
+  type: typeof ADD_PLAN_SAGA;
+  payload: Plan;
+}
+
+export interface DeletePlanSaga {
+  type: typeof DELETE_PLAN_SAGA;
+  payload: Plan;
 }
 
 export type PlanActionTypes =
@@ -57,4 +69,6 @@ export type PlanActionTypes =
   | DeletePlanAction
   | SetPlanLoadingAction
   | SetPlanErrorAction
-  | GetPlansSaga;
+  | GetPlansSaga
+  | AddPlanSaga
+  | DeletePlanSaga;

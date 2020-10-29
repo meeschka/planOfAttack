@@ -4,6 +4,8 @@ import { NavigationContainer } from "@react-navigation/native";
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import createSagaMiddleware from 'redux-saga'
+import { all } from 'redux-saga/effects'
 
 import {
   ThemeProvider,
@@ -12,17 +14,30 @@ import {
 import PlansScreen from "./src/screens/PlansScreen/PlansScreen";
 import ProjectsScreen from "./src/screens/ProjectsScreen/ProjectsScreen";
 import planReducer from "./src/store/reducers/PlanReducer";
+import { watchPlanSaga } from "./src/store/sagas/PlanSaga"
 
 export type RootTabParamList = {
   Projects: undefined;
   Plans: undefined;
 };
 
+const sagaMiddleware = createSagaMiddleware()
+
 const reducers = combineReducers({
   plans: planReducer,
 });
 
-const store = createStore(reducers);
+const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
+
+const store = createStore(
+  reducers,
+  composeEnhancers(applyMiddleware(sagaMiddleware))
+);
+
+function* combineSagas() {
+  yield all([watchPlanSaga()]);
+}
+sagaMiddleware.run(combineSagas)
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
