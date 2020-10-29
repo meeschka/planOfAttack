@@ -5,6 +5,7 @@ import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
 
 import { RootTabParamList } from "../../../App";
 import { Button, PlanListView } from "../../components";
+import { Plan } from "../../store/types/Plan"
 
 type PlansScreenNavigationProp = BottomTabNavigationProp<
   RootTabParamList,
@@ -13,15 +14,6 @@ type PlansScreenNavigationProp = BottomTabNavigationProp<
 
 interface Props {
   navigation: PlansScreenNavigationProp;
-}
-
-interface Plan {
-  id: string;
-  title: string;
-  description: string;
-  notes?: string;
-  project?: string;
-  materials?: [string];
 }
 
 const dummyPlans: Plan[] = [
