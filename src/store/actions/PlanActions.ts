@@ -1,9 +1,6 @@
 import mockPlans from "../../__mocks__/mockPlans";
 import {
   Plan,
-  GET_PLANS,
-  ADD_PLAN,
-  DELETE_PLAN,
   SET_PLAN_ERROR,
   SET_PLAN_LOADING,
   GET_PLANS_SAGA,
@@ -11,27 +8,6 @@ import {
   DELETE_PLAN_SAGA,
   PlanActionTypes,
 } from "../types/Plan";
-
-export function getPlans(): PlanActionTypes {
-  return {
-    type: GET_PLANS,
-    payload: mockPlans,
-  };
-}
-
-export function addPlan(newPlan: Plan): PlanActionTypes {
-  return {
-    type: ADD_PLAN,
-    payload: newPlan,
-  };
-}
-
-export function deletePlan(deletedPlan: Plan): PlanActionTypes {
-  return {
-    type: DELETE_PLAN,
-    payload: deletedPlan,
-  };
-}
 
 export function setPlanError(error: string | undefined): PlanActionTypes {
   return {

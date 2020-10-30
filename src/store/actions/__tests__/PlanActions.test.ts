@@ -1,8 +1,5 @@
 import mockPlans from "../../../__mocks__/mockPlans";
 import {
-  GET_PLANS,
-  ADD_PLAN,
-  DELETE_PLAN,
   SET_PLAN_ERROR,
   SET_PLAN_LOADING,
   GET_PLANS_SAGA,
@@ -10,9 +7,6 @@ import {
   DELETE_PLAN_SAGA,
 } from "../../types/Plan";
 import {
-  addPlan,
-  deletePlan,
-  getPlans,
   getPlansSaga,
   setPlanLoading,
   setPlanError,
@@ -22,27 +16,7 @@ import {
 
 describe("plan actions", () => {
   const samplePlan = mockPlans[0];
-  it("should create an action to add a plan", () => {
-    const expectedAction = {
-      type: ADD_PLAN,
-      payload: samplePlan,
-    };
-    expect(addPlan(samplePlan)).toEqual(expectedAction);
-  });
-  it("should create an action to delete a plan", () => {
-    const expectedAction = {
-      type: DELETE_PLAN,
-      payload: samplePlan,
-    };
-    expect(deletePlan(samplePlan)).toEqual(expectedAction);
-  });
-  it("should create an action to get plans", () => {
-    const expectedAction = {
-      type: GET_PLANS,
-      payload: mockPlans,
-    };
-    expect(getPlans()).toEqual(expectedAction);
-  });
+
   it("should create an action to set loading state", () => {
     const expectedAction = {
       type: SET_PLAN_LOADING,

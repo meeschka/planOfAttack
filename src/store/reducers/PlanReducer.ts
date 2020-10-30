@@ -55,4 +55,4 @@ const planReducer = (
   }
 };
 
-export default planReducer
+export default planReducer;

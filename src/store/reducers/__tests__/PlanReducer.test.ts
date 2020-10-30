@@ -11,14 +11,6 @@ import {
 import planReducer from "../PlanReducer";
 
 describe("plan reducer", () => {
-  it("should return the initial state", () => {
-    expect(planReducer(undefined, {})).toEqual({
-      plans: [],
-      loading: false,
-      error: undefined,
-    });
-  });
-
   it("should return a new loading state", () => {
     const mockState: PlanState = {
       plans: [],
@@ -70,12 +62,15 @@ describe("plan reducer", () => {
       type: ADD_PLAN,
       payload: mockPlans[1],
     };
-    expect(planReducer(mockState, mockAction).plans).toEqual(mockPlans);
+    expect(planReducer(mockState, mockAction).plans).toEqual([
+      mockPlans[0],
+      mockPlans[1],
+    ]);
   });
 
   it("should delete a plan", () => {
     const mockState: PlanState = {
-      plans: mockPlans,
+      plans: [mockPlans[0], mockPlans[1]],
       loading: false,
       error: undefined,
     };

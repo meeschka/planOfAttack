@@ -1,11 +1,12 @@
 import { Ionicons } from "@expo/vector-icons";
-import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
-import { NavigationContainer } from "@react-navigation/native";
+import { createBottomTabNavigator, BottomTabScreenProps } from "@react-navigation/bottom-tabs";
+import { NavigationContainer, RouteProp } from "@react-navigation/native";
 import React from "react";
 import { Provider } from "react-redux";
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
-import createSagaMiddleware from 'redux-saga'
-import { all } from 'redux-saga/effects'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import createSagaMiddleware from "redux-saga";
+import { all } from "redux-saga/effects";
 
 import {
   ThemeProvider,
@@ -14,30 +15,28 @@ import {
 import PlansScreen from "./src/screens/PlansScreen/PlansScreen";
 import ProjectsScreen from "./src/screens/ProjectsScreen/ProjectsScreen";
 import planReducer from "./src/store/reducers/PlanReducer";
-import { watchPlanSaga } from "./src/store/sagas/PlanSaga"
+import { watchPlanSaga } from "./src/store/sagas/PlanSaga";
 
 export type RootTabParamList = {
   Projects: undefined;
   Plans: undefined;
 };
 
-const sagaMiddleware = createSagaMiddleware()
+const sagaMiddleware = createSagaMiddleware();
 
 const reducers = combineReducers({
   plans: planReducer,
 });
 
-const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose
-
 const store = createStore(
   reducers,
-  composeEnhancers(applyMiddleware(sagaMiddleware))
+  composeWithDevTools(applyMiddleware(sagaMiddleware))
 );
 
 function* combineSagas() {
   yield all([watchPlanSaga()]);
 }
-sagaMiddleware.run(combineSagas)
+sagaMiddleware.run(combineSagas);
 
 const Tab = createBottomTabNavigator<RootTabParamList>();
 
@@ -51,12 +50,9 @@ export default function App() {
             initialRouteName="Plans"
             screenOptions={({ route }) => ({
               tabBarIcon: ({ focused, color, size }) => {
-                let iconName;
-
+                let iconName: string = "md-map";
                 if (route.name === "Projects") {
                   iconName = focused ? "ios-list-box" : "ios-list";
-                } else if (route.name === "Plans") {
-                  iconName = "md-map";
                 }
                 return <Ionicons name={iconName} size={size} color={color} />;
               },

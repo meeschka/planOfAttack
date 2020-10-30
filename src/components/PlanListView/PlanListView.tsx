@@ -20,8 +20,8 @@ const PlanListView = ({ plan }: Props) => {
   }, [windowWidth]);
 
   const trimDescription = (description: string): string => {
-    if (description.length < 250)
-      return description.substring(0, 250).concat("...");
+    if (description.length > 150)
+      return description.substring(0, 150).concat("...");
     return description;
   };
 
@@ -93,7 +93,7 @@ const webStyles = StyleSheet.create({
 
 const constantStyles = StyleSheet.create({
   card: {
-    minWidth: "100%",
+    width: "100%",
     borderWidth: 1,
     borderColor: "#202",
     borderRadius: 3,
