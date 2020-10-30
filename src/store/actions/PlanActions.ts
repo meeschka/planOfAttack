@@ -1,4 +1,3 @@
-import mockPlans from "../../__mocks__/mockPlans";
 import {
   Plan,
   SET_PLAN_ERROR,
