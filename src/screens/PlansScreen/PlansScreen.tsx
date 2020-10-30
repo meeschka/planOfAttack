@@ -1,10 +1,14 @@
 import { BottomTabNavigationProp } from "@react-navigation/bottom-tabs";
 import { StatusBar } from "expo-status-bar";
-import React from "react";
+import React, { useEffect } from "react";
 import { View, Text, FlatList, StyleSheet, ScrollView } from "react-native";
+import { useSelector, useDispatch } from "react-redux";
 
 import { RootTabParamList } from "../../../App";
 import { Button, PlanListView } from "../../components";
+import { getPlansSaga, addPlanSaga } from "../../store/actions/PlanActions";
+import { Plan } from "../../store/types/Plan";
+import RootState from "../../store/types/Root";
 
 type PlansScreenNavigationProp = BottomTabNavigationProp<
   RootTabParamList,
@@ -15,30 +19,24 @@ interface Props {
   navigation: PlansScreenNavigationProp;
 }
 
-interface Plan {
-  id: string;
-  title: string;
-  description: string;
-  notes?: string;
-  project?: string;
-  materials?: [string];
-}
-
-const dummyPlans: Plan[] = [
-  {
-    id: "123",
-    title: "Brown wool skirt",
-    description: "Circle skirt using that wool from SFF",
-  },
-  {
-    id: "456",
-    title: "Green sweater",
-    description:
-      "Using the merino from my birthday. Thinking either a cabled cardigan (like the Mulberry Wine pattern by Thea of BabyCocktails) or maybe more of a plan turtleneck with simple detailing, like the September Morn (also a BabyCocktails design) or the Big Y by Hinterm Stein",
-  },
-];
-
+const toAdd = {
+  id: "123456",
+  title: "Navy coat",
+  description: "Melton wool, using that Vogue pattern you have",
+};
 const PlansScreen = ({ navigation }: Props) => {
+  const plans = useSelector((state: RootState) => state.plans.plans);
+  const planLoading = useSelector((state: RootState) => state.plans.loading);
+  const planError = useSelector((state: RootState) => state.plans.error);
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    if (!plans.length && !planError && !planLoading) {
+      dispatch(getPlansSaga());
+    }
+  });
+
+  const addAPlan = () => dispatch(addPlanSaga(toAdd));
   return (
     <ScrollView>
       <View style={styles.container}>
@@ -50,15 +48,10 @@ const PlansScreen = ({ navigation }: Props) => {
           text="Go to Projects"
           onPress={() => navigation.navigate("Projects")}
         />
-        <Button
-          type="accent"
-          size="sm"
-          text="Add a Plan"
-          onPress={() => console.log("hi")}
-        />
+        <Button type="accent" size="sm" text="Add a Plan" onPress={addAPlan} />
         <FlatList
-          data={dummyPlans}
-          renderItem={({ item }) => <PlanListView plan={item}  />}
+          data={plans}
+          renderItem={({ item }) => <PlanListView plan={item} />}
           keyExtractor={(item: Plan) => item.id}
         />
       </View>
